@@ -11,6 +11,6 @@ namespace RFM;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 
-class RMFBundle
+class RFMBundle extends Bundle
 {
 }

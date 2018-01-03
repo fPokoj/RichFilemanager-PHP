@@ -1,6 +1,6 @@
 <?php
 
-namespace RMF\Controller;
+namespace RFM\Controller;
 
 use RFM\Api\LocalApi;
 use RFM\Application;
@@ -17,17 +17,24 @@ if(!ini_get('date.timezone')) {
 }
 
 /**
- * Created by PhpStorm.
- * User: fpokoj
- * Date: 03.01.18
- * Time: 11:42
+ * Page controller.
+ * @Route("/")
  */
 class FilemanagerController extends Controller
 {
-    private $config = [];
+    private $config = [
+        'options' => [
+            'fileRoot' => 'PATH TO FILE',
+            'serverRoot' => 'PATH TO FILE'
+        ]
+    ];
 
     /**
-     * @Route(name="rmf_filemanager", path="/filemanager")
+     * Filemanager
+     *
+     * @Route("/filemanager-connect", name="filemanager-connect")
+     * @Method("GET")
+     * @Template()
      */
     public function fileManagerAction(Request $request)
     {

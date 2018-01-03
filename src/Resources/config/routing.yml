@@ -1,0 +1,6 @@
+rfm_filemanager:
+    resource: "@RFMBundle/Controller/FilemanagerController.php"
+    type:     annotation
+    prefix:   /{lang}/
+    defaults: {lang: pl}
+    type:     annotation
