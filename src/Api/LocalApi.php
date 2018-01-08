@@ -73,7 +73,7 @@ class LocalApi implements ApiInterface
         $model->checkPath();
         $model->checkReadPermission();
         $model->checkRestrictions();
-
+        
         if (!$model->isDirectory()) {
             app()->error('DIRECTORY_NOT_EXIST', [$model->getRelativePath()]);
         }

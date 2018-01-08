@@ -1,0 +1,133 @@
+rfm:
+    #Configure Logger class
+    #Default file value "null".
+    #Full path to log file, e.g. "/var/log/filemanager/logfile".
+    #By default the application writes logs to "filemanager.log" file that located at sys_get_temp_dir()
+    logger:
+        enabled: true
+        file: null
+
+    #General options
+    options:
+    #Default value "true".
+    #By default the application will search `fileRoot` folder under server root folder.
+    #Set value to "false" in case the `fileRoot` folder located outside server root folder.
+    #If `fileRoot` options is set to "false", `serverRoot` value is ignored - always "true".
+        serverRoot: true
+    #Default value "false". Path to the user storage folder.
+    #By default the application will determine the path itself based on $_SERVER['DOCUMENT_ROOT'].
+    #You can set specific path to user storage folder with the following rules:
+    # - absolute path in case `serverRoot` set to "false", e.g. "/var/www/html/filemanager/userfiles/"
+    # - relative path in case `serverRoot` set to "true", e.g. "/filemanager/userfiles/"
+        fileRoot: false
+    #The maximum allowed root folder total size (in Bytes). If set to "false", no size limitations applied.
+        fileRootSizeLimit: false
+    #Default value "false". Deny non-latin characters in file/folder names.
+    #PHP requires INTL extension installed, otherwise all non-latin characters will be stripped.
+        charsLatinOnly: false
+        baseUrl: null
+
+    #SECURITY SECTION
+    security:
+    #Default value "false". Allow write operations.
+    #Set value to "true" to disable all modifications to the filesystem, including thumbnail generation.
+        readOnly: false
+    #Filename extensions are compared against this list, after the right-most dot '.'
+    #Matched files will be filtered from listing results, and will be restricted from all file operations (both read and write).
+        extensions:
+    #Default value "ALLOW_LIST". Takes value "ALLOW_LIST" / "DISALLOW_LIST".
+    #If is set to "ALLOW_LIST", only files with extensions that match `restrictions` list will be allowed, all other files are forbidden.
+    #If is set to "DISALLOW_LIST", all files are allowed except of files with extensions that match `restrictions` list.
+            policy: "ALLOW_LIST"
+    #Default value "true".
+    #Whether extension comparison should be case sensitive.
+            ignoreCase: true
+    #List of allowed / disallowed extensions, depending on the `policy` value.
+    #To allow / disallow files without extension, add / remove the empty string "" to / from this list.
+            restrictions:
+                - ""
+                - jpg
+                - jpe
+                - jpeg
+                - gif
+                - png
+                - svg
+                - txt
+                - pdf
+                - odp
+                - ods
+                - odt
+                - rtf
+                - doc
+                - docx
+                - xls
+                - xlsx
+                - ppt
+                - pptx
+                - csv
+                - ogv
+                - avi
+                - mkv
+                - mp4
+                - webm
+                - m4v
+                - ogg
+                - mp3
+                - wav
+                - zip
+                - md
+    #Files and folders paths relative to the user storage folder (see `fileRoot`) are compared against this list.
+    #Matched items will be filtered from listing results, and will be restricted from all file operations (both read and write).
+        patterns:
+    #Default value "ALLOW_LIST". Takes value "ALLOW_LIST" / "DISALLOW_LIST".
+    #If is set to "ALLOW_LIST", only files and folders that match `restrictions` list will be allowed, all other files are forbidden.
+    #If is set to "DISALLOW_LIST", all files and folders are allowed except of ones that match `restrictions` list.
+            policy: DISALLOW_LIST
+    #Default value "true".
+    #Whether patterns comparison should be case sensitive.
+            ignoreCase: true
+    #List of allowed / disallowed patterns, depending on the `policy` value.
+            restrictions:  [ "*/.htaccess", "*/web.config", "*/.CDN_ACCESS_LOGS/*" ]
+    #Default value "true".
+    #Sanitize file/folder name, replaces gaps and some other special chars.
+        normalizeFilename: true
+
+    #Default value "false".
+    #Whether to store images thumbnails locally (faster; save traffic and requests)
+    images:
+        thumbnail:
+            userLocalStorage: false
+
+#Default value "true".
+#Whether to perform bulk operations on "folders" (rename/move/copy)
+#NOTE: S3 is not a filesystem, it operates with "objects" and it has no such thing as "folder".
+#When you are performing operation like delete/rename/move/copy on "directory" the plugin actually performs
+#multiple operations for each object prefixed with the "directory" name in the background. The more objects you have
+#in your "directory", the more requests will be sent to simulate the "recursive mode".
+#DELETE requests are not charged so they are not restricted with with option.
+#Links with some explanations:
+#http://stackoverflow.com/a/12523414/1789808
+#http://stackoverflow.com/questions/33363254/aws-s3-rename-directory-object
+#http://stackoverflow.com/questions/33000329/cost-of-renaming-a-folder-in-aws-s3-bucket
+    allowBulk:  true
+    aclPolicy:  default
+    encryption: null
+
+    credentials:
+        region: null
+        bucket: null
+        endpoint: null
+        credentials:
+            key: null
+            secret: null
+        options:
+            use_path_style_endpoint: false
+        defaultAcl: "public-read"
+#        cdnHostname: "http://example.cloudfront.net"
+        debug: true
+
+    extra:
+#    Enabled local or aws
+        mode: local
+#        requestPathParam: null
+#        configActionName:   null

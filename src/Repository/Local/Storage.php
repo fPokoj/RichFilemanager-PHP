@@ -49,7 +49,7 @@ class Storage extends BaseStorage implements StorageInterface
      *
      * @var string
      */
-    protected $defaultDir = 'userfiles';
+    protected $defaultDir = 'files';
 
     /**
      * Storage constructor.
